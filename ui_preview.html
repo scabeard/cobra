@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            background-color: #000000;
+            color: #00ff00;
+            font-family: monospace;
+            padding: 20px;
+            line-height: 1.2;
+        }
+        pre {
+            white-space: pre;
+            margin: 0;
+            padding: 20px;
+            border: 1px solid #00ff00;
+            display: inline-block;
+        }
+        .window {
+            margin-bottom: 20px;
+        }
+        .title {
+            color: #008000;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title">i3 Window Manager Layout</div>
+<pre>
+┌─────────────────────────────────────────────────────────────────────┐
+│                        i3 Status Bar [CPU: 15% | MEM: 4.2GB | ⚡ 85%]│
+├───────────────────┬───────────────────┬───────────────────┬─────────┤
+│ 1:Terminal        │ 2:Browser         │ 3:Code            │ 4:Tools  │
+├───────────────────┴───────────────────┴───────────────────┴─────────┤
+│                                                                      │
+│   ╔══ COBRA SYSTEM DASHBOARD ══╗                                    │
+│   ║ CPU Usage: 15%            ║                                    │
+│   ║ Memory: 42% (4.2GB/16GB)  ║      Terminal Window              │
+│   ║ Network:                  ║      $ cobra_cli                   │
+│   ║   eth0: 192.168.1.100    ║                                    │
+│   ║   wlan0: 192.168.1.101   ║                                    │
+│   ╚════════════════════════════╝                                    │
+│                                                                      │
+│   [cobra@system]$ █                                                 │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+</pre>
+    </div>
+
+    <div class="window">
+        <div class="title">Cobra Dashboard Detail View</div>
+<pre>
+╔══ COBRA SYSTEM DASHBOARD ══╗
+║ CPU Usage: ▇▇▇▇░░░░░░ 42% ║
+║ Memory: ▇▇▇▇▇░░░░░ 52%    ║
+║ Network:                   ║
+║   eth0: 192.168.1.100     ║
+║     ↑ 5.2 MB/s            ║
+║     ↓ 2.1 MB/s            ║
+║   wlan0: 192.168.1.101    ║
+║     ↑ 1.1 MB/s            ║
+║     ↓ 0.5 MB/s            ║
+║                           ║
+║ Active Services:          ║
+║ ● Firewall               ║
+║ ● IDS                    ║
+║ ● Network Monitor        ║
+║ ● System Monitor         ║
+╚═══════════════════════════╝
+</pre>
+    </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+we will be making an install script for debian
+
+we will be making a minulmist install with only the tools needed for use in pen testing
+
+our idea is to make a desktop that runs in a terminal
+
+it has all the fancy gui similar to hacknet game on steam.
+
+ show cpu,ram,network,ip, 
+
+this is for doing vulnhub challanges
+
+we need minulmist tools installed like nmap, nikto, python and coding tools, whatever tight compact tools we can get from parrot os for us
+
+we will add tools later. 
+
+our "desktop" will have folder/dir view along with terminals in tabs
+
+we want a futuristic minimal install script that makes our debian install as lightweight as possible with the tools involved
+
