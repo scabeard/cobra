@@ -155,17 +155,22 @@ class CobraUI:
     ]
 
     def __init__(self):
-        self.dashboard = DashboardWidget()
-        self.main_widget = urwid.Padding(
-            urwid.Filler(self.dashboard),
-            align='center',
-            width=('relative', 80)
-        )
-        self.loop = urwid.MainLoop(
-            self.main_widget,
-            self.palette,
-            unhandled_input=self.handle_input
-        )
+        try:
+            self.dashboard = DashboardWidget()
+            self.main_widget = urwid.Padding(
+                urwid.Filler(self.dashboard),
+                align='center',
+                width=('relative', 80)
+            )
+            self.loop = urwid.MainLoop(
+                self.main_widget,
+                self.palette,
+                unhandled_input=self.handle_input,
+                handle_mouse=False
+            )
+        except Exception as e:
+            print(f"Failed to initialize UI: {str(e)}")
+            sys.exit(1)
 
     def handle_input(self, key):
         if key in ('q', 'Q'):
@@ -182,8 +187,15 @@ class CobraUI:
         loop.set_alarm_in(1, self.update)
 
 if __name__ == '__main__':
-    ui = CobraUI()
-    ui.run()
+    import sys
+    try:
+        ui = CobraUI()
+        ui.run()
+    except KeyboardInterrupt:
+        sys.exit(0)
+    except Exception as e:
+        print(f"Error running UI: {str(e)}")
+        sys.exit(1)
 EOF
 
 chmod +x "$UI_SCRIPT" || handle_error "Failed to make UI script executable"
