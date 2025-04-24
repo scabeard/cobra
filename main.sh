@@ -26,14 +26,6 @@ if [ "$EUID" -ne 0 ]; then
     exit 1
 fi
 
-# Check for required commands
-for cmd in apt wget curl git python3 pip3; do
-    if ! command -v $cmd &> /dev/null; then
-        echo -e "${RED}[!] Error: Required command '$cmd' not found${NC}"
-        exit 1
-    fi
-done
-
 # Get the directory where the script is located
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
@@ -44,6 +36,14 @@ mkdir -p "$INSTALL_DIR"
 # Component scripts
 echo -e "${PURPLE}[*] Running base system installation...${NC}"
 bash "$SCRIPT_DIR/base.sh"
+
+# Check for required commands (after base installation)
+for cmd in apt wget curl git python3 pip3; do
+    if ! command -v $cmd &> /dev/null; then
+        echo -e "${RED}[!] Error: Required command '$cmd' not found${NC}"
+        exit 1
+    fi
+done
 
 echo -e "${PURPLE}[*] Configuring security features...${NC}"
 bash "$SCRIPT_DIR/security.sh"
