@@ -45,6 +45,13 @@ verify_dir() {
     fi
 }
 
+# Function to verify file creation
+verify_file() {
+    if [ ! -f "$1" ]; then
+        handle_error "Failed to create file: $1"
+    fi
+}
+
 echo -e "${GREEN}[*] Installing pentesting tools...${NC}"
 
 # Verify system requirements
@@ -60,7 +67,6 @@ fi
 echo -e "${CYAN}[*] Installing basic tools...${NC}"
 apt install -y --no-install-recommends \
     nmap \
-    nikto \
     hydra \
     sqlmap \
     dirb \
@@ -73,10 +79,7 @@ apt install -y --no-install-recommends \
     netcat-traditional \
     masscan \
     whatweb \
-    exploitdb \
-    wordlists \
     smbclient \
-    enum4linux \
     nbtscan \
     ftp \
     telnet \
@@ -135,7 +138,9 @@ chmod +x nmapAutomator/nmapAutomator.sh || handle_warning "Failed to make nmapAu
 cd /opt/cobra/tools/web || handle_error "Failed to change to web directory"
 git clone https://github.com/maurosoria/dirsearch.git || handle_warning "Failed to clone dirsearch"
 git clone https://github.com/OJ/gobuster.git || handle_warning "Failed to clone gobuster"
+git clone https://github.com/sullo/nikto.git || handle_warning "Failed to clone nikto"
 [ -f dirsearch/dirsearch.py ] && chmod +x dirsearch/dirsearch.py || handle_warning "Failed to make dirsearch executable"
+[ -f nikto/program/nikto.pl ] && chmod +x nikto/program/nikto.pl || handle_warning "Failed to make nikto executable"
 
 # Exploit tools with error handling
 cd /opt/cobra/tools/exploit || handle_error "Failed to change to exploit directory"
@@ -146,6 +151,7 @@ git clone https://github.com/carlospolop/privilege-escalation-awesome-scripts-su
 cd /opt/cobra/tools/post || handle_error "Failed to change to post directory"
 git clone https://github.com/DominicBreuker/pspy.git || handle_warning "Failed to clone pspy"
 git clone https://github.com/rebootuser/LinEnum.git || handle_warning "Failed to clone LinEnum"
+git clone https://github.com/CiscoCXSecurity/enum4linux.git || handle_warning "Failed to clone enum4linux"
 
 # Create tool launcher scripts with error handling
 echo -e "${CYAN}[*] Creating tool launcher scripts...${NC}"
@@ -176,6 +182,24 @@ bash /opt/cobra/tools/post/LinEnum/LinEnum.sh "$@"
 EOF
 chmod +x "$LINENUM_LAUNCHER" || handle_error "Failed to make LinEnum launcher executable"
 verify_file "$LINENUM_LAUNCHER"
+
+# Create nikto launcher with error handling
+NIKTO_LAUNCHER="/opt/cobra/scripts/nikto"
+cat > "$NIKTO_LAUNCHER" << 'EOF' || handle_error "Failed to create nikto launcher"
+#!/bin/bash
+perl /opt/cobra/tools/web/nikto/program/nikto.pl "$@"
+EOF
+chmod +x "$NIKTO_LAUNCHER" || handle_error "Failed to make nikto launcher executable"
+verify_file "$NIKTO_LAUNCHER"
+
+# Create enum4linux launcher with error handling
+ENUM4LINUX_LAUNCHER="/opt/cobra/scripts/enum4linux"
+cat > "$ENUM4LINUX_LAUNCHER" << 'EOF' || handle_error "Failed to create enum4linux launcher"
+#!/bin/bash
+perl /opt/cobra/tools/post/enum4linux/enum4linux.pl "$@"
+EOF
+chmod +x "$ENUM4LINUX_LAUNCHER" || handle_error "Failed to make enum4linux launcher executable"
+verify_file "$ENUM4LINUX_LAUNCHER"
 
 # Create tools menu script with error handling
 TOOLS_MENU="/opt/cobra/scripts/tools-menu"
