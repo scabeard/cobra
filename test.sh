@@ -33,7 +33,7 @@ check_package_manager() {
         echo -e "${RED}FAILED${NC}"
         echo -e "${YELLOW}[!] This script requires a Debian-based Linux distribution${NC}"
         return 1
-    }
+    fi
 }
 
 # Function to check disk space
@@ -50,7 +50,7 @@ check_disk_space() {
         echo -e "${RED}FAILED${NC}"
         echo -e "${YELLOW}[!] Not enough disk space. Available: ${available_space}GB, Required: ${required_space}GB${NC}"
         return 1
-    }
+    fi
 }
 
 # Function to check memory
@@ -67,7 +67,7 @@ check_memory() {
         echo -e "${RED}FAILED${NC}"
         echo -e "${YELLOW}[!] Not enough memory. Available: ${available_mem}GB, Required: ${required_mem}GB${NC}"
         return 1
-    }
+    fi
 }
 
 # Function to check internet connectivity
@@ -80,7 +80,7 @@ check_internet() {
         echo -e "${RED}FAILED${NC}"
         echo -e "${YELLOW}[!] No internet connection available${NC}"
         return 1
-    }
+    fi
 }
 
 # Main test sequence
