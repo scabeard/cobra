@@ -20,7 +20,7 @@ check_requirement() {
         echo -e "${RED}FAILED${NC}"
         echo -e "${YELLOW}[!] $3${NC}"
         return 1
-    }
+    fi
 }
 
 # Function to check package manager
